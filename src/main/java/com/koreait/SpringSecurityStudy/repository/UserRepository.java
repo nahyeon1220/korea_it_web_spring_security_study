@@ -5,6 +5,8 @@ import com.koreait.SpringSecurityStudy.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class UserRepository {
 
@@ -15,4 +17,11 @@ public class UserRepository {
         return userMapper.addUser(user);
     }
 
+    public Optional<User> getUserByUserId(Integer userId) {
+        return userMapper.getUserByUserId(userId);
+    }
+
+    public Optional<User> getUserByUsername(String username) {
+        return userMapper.getUserByUsername(username);
+    }
 }

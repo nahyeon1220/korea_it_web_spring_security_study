@@ -2,10 +2,26 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.koreait.dbms_study.mapper.PostMapper">
+<mapper namespace="com.koreait.SpringSecurityStudy.mapper.UserMapper">
     <insert id="addUser">
         insert into
         user_tb
         values (0, #{username}, #{password}, #{email});
     </insert>
+    <select id="getUserByUserId">
+        select
+            *
+        from
+            user_tb
+        where
+        user_id = #{userId}
+    </select>
+    <select id="getUserByUsername">
+        select
+            *
+        from
+            user_tb
+        where
+        username = #{username}
+    </select>
 </mapper>
