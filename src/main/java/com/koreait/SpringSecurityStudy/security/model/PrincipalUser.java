@@ -1,13 +1,16 @@
 package com.koreait.SpringSecurityStudy.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.koreait.SpringSecurityStudy.entity.UserRole;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -17,9 +20,13 @@ public class PrincipalUser implements UserDetails {
     @JsonIgnore
     private String password;
     private String email;
+    private List<UserRole> userRoles;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return userRoles.stream().map(
+                userRole -> new SimpleGrantedAuthority(userRole.getRole().getRoleName()))
+                .collect(Collectors.toList());
     }
 }
