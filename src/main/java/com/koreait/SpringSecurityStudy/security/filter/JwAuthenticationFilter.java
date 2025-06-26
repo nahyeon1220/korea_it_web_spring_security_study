@@ -37,7 +37,7 @@ public class JwAuthenticationFilter implements Filter {
 
         //해당 메소드가 아니면 그냥 다음 필터로 넘김
         List<String> methods = List.of("POST", "PUT", "GET", "PATCH", "DELETE");
-        if (methods.contains(request.getMethod())) {
+        if (!methods.contains(request.getMethod())) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
