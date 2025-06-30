@@ -24,9 +24,9 @@ public class OAuth2PrincipalUserService extends DefaultOAuth2UserService {
 
         //사용자 정보(Map 형태) 추출
         Map<String, Object> attributes = oAuth2User.getAttributes();
-
+        System.out.println("11111" + attributes.toString());
         //어떤 OAuth2 Provider인지 확인
-        //provider -> 공급처: google, naver, kakao ...
+        //providx   er -> 공급처: google, naver, kakao ...
         String provider = userRequest.getClientRegistration().getRegistrationId();
 
         //로그인한 사용자의 식별자(id), 이메일(email)
