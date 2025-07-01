@@ -5,6 +5,7 @@ import com.koreait.SpringSecurityStudy.entity.User;
 import com.koreait.SpringSecurityStudy.repository.OAuth2UserRepository;
 import com.koreait.SpringSecurityStudy.repository.UserRepository;
 import com.koreait.SpringSecurityStudy.security.jwt.JwtUtil;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,18 +42,18 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         OAuth2User oAuth2User = oAuth2UserRepository.getOAuth2UserByProviderAndProviderUserId(provider, providerUserId);
 
         //OAuth2 로그인을 통해 회원가입이 되어있지 않거나 아직 연동되지 않은 상태
-        if (oAuth2User == null) {
-            //프론트(웹)로 provider와 providerUserId, email 전달
+        if(oAuth2User == null) {
+            //프론트로 provider와 providerUserId, email 전달
             response.sendRedirect("http://localhost:3000/auth/oauth2?provider=" + provider + "&providerUserId=" + providerUserId + "&email=" + email);
             return;
         }
 
-        //연동된 사용자가 있다면? -> userId를 통해 회원 정보 조회
+        //연동된 사용자가 있다면? => userId를 통해 회원 정보 조회
         Optional<User> optionalUser = userRepository.getUserByUserId(oAuth2User.getUserId());
 
         //OAuth2 로그인을 통해 회원가입이나 연동을 진행한 경우
         String accessToken = null;
-        if (optionalUser.isPresent()) {
+        if(optionalUser.isPresent()){
             accessToken = jwtUtil.generateAccessToken(Integer.toString(optionalUser.get().getUserId()));
         }
 
